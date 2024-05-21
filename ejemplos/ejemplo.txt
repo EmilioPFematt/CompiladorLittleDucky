@@ -1,0 +1,41 @@
+program Main;
+var 
+	hola0,hola1:int;
+	hola2, hola3:float;
+void h(hola9:int, hola10:int)[
+	var 
+		hola4,hola5,hola6:int;
+		hola7, hola8:float;
+	{
+		hola0=1;
+		hola1=2;
+	}
+];
+
+void h(h1:int, h2:int)[
+	var 
+		hola,hola1,hola2:int;
+		hola3, hola4:float;
+	{
+		hola=1;
+		hola1=2;
+	}
+];
+
+main {
+
+	h(1, 2);
+	h1(1, 2);
+	print("hola", hola, h);
+	do {
+		h0 = 0 + 1;
+		if(a + b > 3 + a) {
+			h_0 = 0 > 1; 
+		}
+		else  {
+			print("nada");
+		};
+	} while (a < b);
+	
+}
+end
