@@ -1,0 +1,47 @@
+CONSTANTES
+-1 Integer 0
+2 Integer 3
+1.5 Float 4
+10 Integer 7
+5.0 Float 9
+"\n" String 13
+7.0 Float 14
+"FALLO" String 17
+0 Integer 19
+1 Integer 21
+" " String 24
+VARIABLES
+a Float 1
+b Integer 2
+CUADRUPLOS
+= 2 3 2
+= 1 4 1
+* 0 2 5
+* 1 5 6
+* 7 3 8
+* 0 9 10
+/ 8 10 11
++ 6 11 12
+= 1 12 1
+Print 1 0 -1
+Print 13 0 -1
+* 0 14 15
+!= 1 15 16
+GotoF 16 0 16
+Print 17 0 -1
+Print 13 0 -1
++ 1 4 18
+= 1 18 1
+Print 1 0 -1
+Print 13 0 -1
+< 1 19 20
+GotoV 20 0 16
+- 2 21 22
+= 2 22 2
+> 2 19 23
+GotoV 23 0 16
+Print 1 0 -1
+Print 24 0 -1
+Print 2 0 -1
+Print 13 0 -1
+End 0 0 -1

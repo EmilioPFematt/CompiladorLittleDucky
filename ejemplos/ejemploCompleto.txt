@@ -1,0 +1,22 @@
+program Main;
+
+var a:float; b:int;
+
+main {
+	b = 2;
+	a = 1.5;
+	a = a * -b + (10 * 2 / -5.0);
+	print(a, "\n");
+	if(a != -7.0) {
+		print("FALLO", "\n");
+	};
+	do {
+		do {
+			a = a + 1.5;
+			print(a, "\n");
+		}while(a < 0);
+		b = b - 1;
+	}while(b > 0);
+	print(a, " ", b, "\n");
+}
+end

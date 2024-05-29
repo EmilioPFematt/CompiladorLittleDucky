@@ -8,7 +8,7 @@ public class Variable {
 	public Variable(String n, String t, int v) {
 		name = n;
 		if(t.equals("int")) type = "Integer";
-		if(t.equals("float")) type = "Float";
+		else if(t.equals("float")) type = "Float";
 		else type = t;
 		add = v; 
 	}
@@ -16,7 +16,7 @@ public class Variable {
 	public Variable(String n, String t) {
 		name = n;
 		if(t.equals("int")) type = "Integer";
-		if(t.equals("float")) type = "Float";
+		else if(t.equals("float")) type = "Float";
 		else type = t;
 	}
 	
@@ -52,6 +52,10 @@ public class Variable {
 
 	@Override
 	public String toString() {
-		return this.getName();
+		return Integer.toString(add);
+	}
+
+	public String writeVar() {
+		return name + " " + type + " " + Integer.toString(add);
 	}
 };

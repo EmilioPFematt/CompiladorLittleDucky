@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Middleman {
 	public ArrayList<Cuadruplo> cuads = new ArrayList<Cuadruplo>();;
-	private int nextMem = -1; 
+	private int nextMem = 0; 
 	public static Stack<String> ops = new Stack<String>();
 	public static Stack<Integer> saltos = new Stack<Integer>(); 
 	public static Stack<Variable> opr = new Stack<Variable>();

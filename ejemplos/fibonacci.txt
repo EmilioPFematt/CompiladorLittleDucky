@@ -1,0 +1,17 @@
+program Main;
+
+var a, b, c, d:int;
+
+main {
+	a = 1; 
+	b = 0; 
+	d = 10; 
+	do {
+		c = a + b; 
+		b = a;
+		a = c;
+		d = d-1; 
+		print(c, "\n");
+	}while(d > 0);
+}
+end

@@ -49,6 +49,6 @@ public class Cuadruplo {
 
 	@Override
 	public String toString() {
-		return "\n" + operador + " " + izq.toString() + " " + der.toString() + " $" + add;
+		return operador + " " + izq.toString() + " " + der.toString() + " " + add;
 	}
 }

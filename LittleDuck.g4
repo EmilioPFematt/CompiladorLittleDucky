@@ -7,7 +7,7 @@ grammar LittleDuck;
 	public static Middleman m = new Middleman(); 
 }
 
-programa locals[Program p = new Program(m)] :'program 'ID {$programa::p.setName($ID.text);}';' dec_v dec_f 'main'body'end'{m.cuads.add(new Cuadruplo("End"));}{System.out.println(m.cuads);}; 
+programa locals[Program p = new Program(m)] :'program 'ID {$programa::p.setName($ID.text);}';' dec_v dec_f 'main'body'end'{m.cuads.add(new Cuadruplo("End"));}{$programa::p.writeToFile();}; 
 
 dec_v: vars | ;
 dec_f: funcs dec_f | ;
@@ -68,5 +68,5 @@ ID: [A-Za-z][A-Za-z0-9_]*;
 STRING: '"'~["]*'"';
 NEWLINE: [\r\n]+ -> skip;
 WHITESPACE: (' ' | '\t') -> skip;
-INT: [-]?[0-9]+;
+INT: [0-9]+;
 FLOAT: [0-9]+('.'[0-9]+);

@@ -1,5 +1,8 @@
 package interventions;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //Esta clase va a contener todas las intervenciones
@@ -7,6 +10,7 @@ import java.util.ArrayList;
 public class Program {
 	private ArrayList<Variable> g_vars;
 	private ArrayList<Function> g_funcs;
+	private ArrayList<Variable> dir_const; 
 	private String name; 
 	private boolean hasLocal = false; 
 	private boolean f_error = false;
@@ -15,6 +19,8 @@ public class Program {
 	public Program(Middleman mi) {
 		g_vars = new ArrayList<Variable>();
 		g_funcs = new ArrayList<Function>();
+		dir_const = new ArrayList<Variable>();
+		dir_const.add(new Variable("-1", "Integer", 0));
 		m = mi;
 	}
 	public void setName(String n) {
@@ -119,9 +125,11 @@ public class Program {
 
 	public void createCuad(Variable l, Variable r, String op) {
 		Cuadruplo q = new Cuadruplo(op, l, r, m.nextMemory());
-		System.out.println("Cuadruplo: "+ q + " " + q.validate());
 		if(q.validate() != "Error") {
 			m.cuads.add(q);
+		}
+		else {
+			System.out.println("ERROR DE TIPOS\n");
 		}
 	}
 
@@ -139,7 +147,15 @@ public class Program {
 	}
 
 	public void pushQConst(String v, String type) {
-		Middleman.opr.push(new Variable(v, type));
+		Variable V = new Variable(v, type);
+		boolean cont = false;
+		if(dir_const.contains(V)){
+			V = dir_const.get(dir_const.indexOf(V));
+			cont = true;
+		}
+		else V.setAdd(m.nextMemory());
+		Middleman.opr.push(V);
+		if(!cont) dir_const.add(V);
 	}
 
 	public void pushOps(String op) {
@@ -224,7 +240,7 @@ public class Program {
 			Cuadruplo q = new Cuadruplo(ops, l_op, r_op, l_op.getAddress());
 			String res = q.validate();
 			if(res == "Error") {
-				System.out.println("assignError");
+				System.out.println("Assign Error: Type Mismatch");
 				return;
 			}
 			m.cuads.add(q);
@@ -233,7 +249,10 @@ public class Program {
 	
 	public void pushIf() {
 		Variable exp = Middleman.opr.pop();
-		if(!exp.getType().equals("Boolean")) return;
+		if(!exp.getType().equals("Boolean")) {
+			System.out.println("If error: Result of expression is not of type boolean");
+			return;
+		}
 		Cuadruplo q = new Cuadruplo("GotoF", exp, 0);
 		m.cuads.add(q);
 		Middleman.saltos.push(m.cuads.size()-1);
@@ -265,20 +284,53 @@ public class Program {
 	}
 	public void pushPrintExpresion() {
 		Variable exp = Middleman.opr.pop();
-		Cuadruplo q = new Cuadruplo("Print", exp, exp.getAddress());
+		Cuadruplo q = new Cuadruplo("Print", exp, -1);
 		m.cuads.add(q);
 	}
 
 	public void pushPrintString(String s) {
 		Variable exp = new Variable(s, "String");
+		boolean cont = false;
+		if(dir_const.contains(exp)) {
+			exp.setAdd(dir_const.get(dir_const.indexOf(exp)).getAddress());
+			cont = true;
+		}
+		else exp.setAdd(m.nextMemory());
 		Cuadruplo q = new Cuadruplo("Print", exp, -1);
 		m.cuads.add(q);
+		if(!cont)
+			dir_const.add(exp);
 	}
 
 	public void pushNegative(String op) {
 		if(op.equals("-")) {
-			Middleman.opr.push(new Variable("-1", "Integer"));
+			Middleman.opr.push(new Variable("-1", "Integer", 0));
 			Middleman.ops.push("*");
 		}
+	}
+
+	public void writeToFile() {
+		try {
+			BufferedWriter w = new BufferedWriter(new FileWriter("./MaquinaVirtual/Programa.txt"));
+			
+			w.write("CONSTANTES\n");
+			for(Variable i:dir_const) {
+				w.write(i.getName() + ' ' + i.getType() + ' ' + i.getAddress() + "\n");
+			}
+			w.write("VARIABLES\n");
+			for(Variable i:g_vars) {
+				w.write(i.writeVar() + "\n");
+			}
+			w.write("CUADRUPLOS\n");
+			for(Cuadruplo i:m.cuads) {
+				w.write(i.toString() + "\n");
+			}
+			
+			w.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

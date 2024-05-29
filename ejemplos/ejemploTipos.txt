@@ -1,0 +1,14 @@
+program Main;
+
+var a:float; b:int;
+
+main {
+	b = a;
+	a = a > b;
+	if(a) {
+		print("Fallo");
+	};
+	
+	
+}
+end

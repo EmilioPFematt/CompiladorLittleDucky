@@ -162,7 +162,7 @@ public class LittleDuckParser extends Parser {
 			setState(88);
 			match(T__3);
 			m.cuads.add(new Cuadruplo("End"));
-			System.out.println(m.cuads);
+			((ProgramaContext)getInvokingContext(0)).p.writeToFile();
 			}
 		}
 		catch (RecognitionException re) {
